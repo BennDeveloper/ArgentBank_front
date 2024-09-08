@@ -3,7 +3,9 @@ import Header from './assets/components/Header';
 import Footer from './assets/components/Footer';
 import './index.css';
 import './App.css';
-import { store } from './redux/store';
+import store from './redux/store';
+import { Provider } from 'react-redux';
+
 
 function App() {
 
