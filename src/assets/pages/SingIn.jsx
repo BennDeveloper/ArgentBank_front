@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'; // useDispatch pour envoyer des actions à Redux et useSelector pour accéder à l'état dans Redux
-import { singinUser } from '../../redux/UserSlice';
+import { singinUser } from '../../redux/authSlice';
 import { useNavigate } from 'react-router-dom';// Importation de useNavigate pour la navigation entre les pages
 import '/src/index.css';
 
@@ -14,7 +14,7 @@ export const SingIn = () => {
   
   const dispatch = useDispatch(); // Initialisation de useDispatch pour envoyer des actions à Redux
   const navigate = useNavigate(); // Initialisation de useNavigate pour gérer la redirection après connexion réussie
-  const { loading, error, user } = useSelector((state) => state.user); // Récupération de l'état user à partir du store Redux pour accéder à loading, error et user
+  const { loading, error, token } = useSelector((state) => state.auth); // Récupération de l'état user à partir du store Redux pour accéder à loading, error et user
 
   const handleSingInEvent = (e) => {
     e.preventDefault();                          
@@ -28,12 +28,12 @@ export const SingIn = () => {
 
   //useEffect pour surveiller l'état user et rediriger l'utilisateur après connexion réussie
   useEffect(() => {
-    console.log('Current user:', user);
-    if (user && user.body && user.body.token) {  //si un token est présent
+    console.log('Current token:', token);
+    if (token) {  //si un token est présent
       console.log('Navigating to user page');
       navigate('/user');  
     }
-  }, [user, navigate]);  
+  }, [token, navigate]);  
 
   return (
     <main className="main bg-dark">
