@@ -1,9 +1,4 @@
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 html, body, #root {
     height: 100%; 
@@ -45,7 +40,7 @@ body {
 .bg-dark {
   background-color: #12002b;
   width: 100%;
-  height: 100vh; /* 100vh signifie 100% de la hauteur de la fenêtre d'affichage */
+  height: 95vh; /* 100vh signifie 100% de la hauteur de la fenêtre d'affichage */
 
 }
 
@@ -84,6 +79,22 @@ body {
   margin-right: 0.5rem;
 }
 
+.main-nav-item-span{
+  padding-right: 10px;
+}
+
+.userName{
+  padding-right: 10px;
+}
+
+.fa-user-circle{
+  padding-right: 10px;
+}
+
+.link-in-out{
+  text-decoration: none;
+}
+
 .main-nav-item:hover {
   text-decoration: underline;
 }
@@ -96,6 +107,24 @@ body {
 .main-nav-logo-image {
   max-width: 100%;
   width: 200px;
+}
+.bg-dark h1{
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centre horizontalement */
+  justify-content: center; /* Centre verticalement */
+  gap: 10px; /* Espace entre les éléments */
+  width: 100%; /* Ajuste la largeur du formulaire */
+  padding: 30px;
+}
+.form input{
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .hero {
@@ -126,6 +155,10 @@ body {
 .hero-content .text {
   margin-bottom: 0;
   font-size: 0.9rem;
+}
+
+.feature-item{
+  height: 32vh;
 }
 
 @media (min-width: 920px) {

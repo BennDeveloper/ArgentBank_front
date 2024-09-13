@@ -1,22 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-
-
-export const singinUser = createAsyncThunk(  // Création de la fonction asynchrone "signinUser" à l'aide de createAsyncThunk
-  'user/singinUser', 
-  async (userCredentials, { rejectWithValue }) => {  // Paramètres de la fonction: les informations de connexion et la méthode pour rejeter la valeur
+// Thunk لجلب بيانات المستخدم
+export const getUserData = createAsyncThunk(
+  'user/getUserData',
+  async (token, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:3001/api/v1/user/login", { 
-        method: "POST",
+      const response = await fetch("http://localhost:3001/api/v1/user/profile", {
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
         },
-        body: JSON.stringify(userCredentials),
       });
 
       if (!response.ok) {
         const errorResponse = await response.json();
-        return rejectWithValue(errorResponse.message || "Failed to login");
+        return rejectWithValue(errorResponse.message || "Failed to fetch user data");
       }
 
       const data = await response.json();
@@ -27,35 +25,79 @@ export const singinUser = createAsyncThunk(  // Création de la fonction asynchr
   }
 );
 
+// Thunk لتحديث بيانات المستخدم
+export const updateUserData = createAsyncThunk(
+  'user/updateUserData',
+  async ({ token, userName }, { rejectWithValue }) => {
+    try {
+      const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({ userName }), // إرسال الاسم الجديد فقط
+      });
+
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        return rejectWithValue(errorResponse.message || "Failed to update user data");
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message || "Network error");
+    }
+  }
+);
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: {   //État initial du slice
+  initialState: {
     loading: false,
-    user: null,
     error: null,
+    userName: null,
+    firstName: null,
+    lastName: null,
+    isEditing: false,
   },
   reducers: {
-     logout: (state) => {   // Réducteur pour déconnecter l'utilisateur
-      state.user = null;
+    onIsEditing: (state) => {
+      state.isEditing = !state.isEditing;
     }
-  }, 
-  extraReducers: (builder) => {   // Gestion des actions asynchrones supplémentaires (comme les promesses renvoyées par createAsyncThunk)
+  },
+  extraReducers: (builder) => {
     builder
-      .addCase(singinUser.pending, (state) => {  // Lorsque la fonction asynchrone est en attente
-        state.loading = true;  
-        state.error = null;  
+      .addCase(getUserData.pending, (state) => {
+        state.loading = true;
+        state.error = null;
       })
-      .addCase(singinUser.fulfilled, (state, action) => {  // Lorsque la fonction asynchrone est réussie
-        state.loading = false; 
-        state.user = action.payload;  
+      .addCase(getUserData.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userName = action.payload.body.userName;
+        state.lastName = action.payload.body.lastName;
+        state.firstName = action.payload.body.firstName;
       })
-      .addCase(singinUser.rejected, (state, action) => {  // Lorsque la fonction asynchrone est rejetée
-        state.loading = false;  
-        state.error = action.payload || action.error.message; 
+      .addCase(getUserData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || action.error.message;
+      })
+      .addCase(updateUserData.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateUserData.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userName = action.payload.body.userName; // تحديث الاسم بعد الحفظ
+        state.isEditing = false; // إغلاق وضع التعديل
+      })
+      .addCase(updateUserData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || action.error.message;
       });
   }
 });
 
-export const { logout } = userSlice.actions;
+export const { onIsEditing } = userSlice.actions;
 export default userSlice.reducer;
