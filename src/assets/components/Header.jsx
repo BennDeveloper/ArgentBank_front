@@ -29,19 +29,20 @@ function Header() {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div className="link-in-out">
-        {token ? (   // Si l'utilisateur est connecté, afficher le bouton Sign Out
-          <Link className="main-nav-item" to="/signin"  onClick={handleLogout}>
-            
-            <i className="fa fa-user-circle"></i>
-            <span className="userName">{userName}</span> 
-            <span>Sign Out</span>
-          </Link>
-        ) : (  // Si l'utilisateur n'est pas connecté, afficher le bouton Sign In
-          <Link className="main-nav-item" to="/signin">
-            <i className="fa fa-user-circle"></i> Sign In
-          </Link>
-        )}
-      </div>
+  {token ? (   // Si l'utilisateur est connecté, afficher le bouton Sign Out
+    <div className="main-nav-item">
+      <i className="fa fa-user-circle"></i>
+      <span className="userName">{userName}</span> 
+      <Link to="/signin" onClick={handleLogout} className="SignOut"> 
+        <span>Sign Out</span>
+      </Link>
+    </div>
+  ) : (  // Si l'utilisateur n'est pas connecté, afficher le bouton Sign In
+    <Link className="main-nav-item" to="/signin">
+      <i className="fa fa-user-circle"></i> Sign In
+    </Link>
+  )}
+</div>
     </nav>
   );
 }

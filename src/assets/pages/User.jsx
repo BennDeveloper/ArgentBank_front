@@ -45,8 +45,9 @@ function User() {
           />
           <input type="text" disabled value={firstName} />
           <input type="text" disabled value={lastName} />
-          <button className="edit-button" onClick={() => dispatch(onIsEditing())}>Cancel</button>
           <button className="edit-button" onClick={handleSave}>Save</button> {/* btn pour save*/}
+          <button className="cancel-button" onClick={() => dispatch(onIsEditing())}>Cancel</button>
+          
         </form>
       )}
       <h2 className="sr-only">Accounts</h2>

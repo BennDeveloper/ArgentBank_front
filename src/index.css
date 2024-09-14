@@ -85,18 +85,25 @@ body {
 
 .userName{
   padding-right: 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+.SignOut{
+  text-decoration: none;
+}
+.main-nav-item:hover{
+  text-decoration: none;
+}
+.SignOut:hover {
+  text-decoration: none;
 }
 
 .fa-user-circle{
-  padding-right: 10px;
+  padding-right: 5px;
 }
 
 .link-in-out{
   text-decoration: none;
-}
-
-.main-nav-item:hover {
-  text-decoration: underline;
 }
 
 .main-nav-logo {
@@ -119,12 +126,11 @@ body {
   align-items: center; /* Centre horizontalement */
   justify-content: center; /* Centre verticalement */
   gap: 10px; /* Espace entre les éléments */
-  width: 100%; /* Ajuste la largeur du formulaire */
-  padding: 30px;
+  width: 95%; /* Ajuste la largeur du formulaire */
+  margin: 30px ;
 }
 .form input{
   padding: 10px;
-  margin-bottom: 10px;
 }
 
 .hero {
@@ -182,6 +188,7 @@ body {
   .hero-content .text {
     font-size: 1.2rem;
   }
+ 
 }
 
 .features {
@@ -322,6 +329,14 @@ body {
   background-color: #00bc77;
   color: #fff;
   font-weight: bold;
+  padding: 10px 16px;
+}
+
+.cancel-button{
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #fff;
+  font-weight: bold;
   padding: 10px;
 }
 
@@ -353,5 +368,28 @@ body {
 
   .transaction-button {
     width: 200px;
+  }
+  
+
+}
+
+
+@media (max-width: 719px){
+  .bg-dark {
+    height: 105vh; /* 100vh signifie 100% de la hauteur de la fenêtre d'affichage */
+  }
+
+  .main-nav{
+    padding: 5px 5px;
+  }
+  .userName{
+    font-size: 15px;
+    width: 15px;
+  }
+  .SignOut{
+    font-size: 15px;
+  }
+  .main-nav-logo-image{
+    width: 150px;
   }
 }
