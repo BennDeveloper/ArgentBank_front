@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// Thunk لجلب بيانات المستخدم
+
+
+// Thunk pour récupérer les données de l'utilisateur
+
 export const getUserData = createAsyncThunk(
   'user/getUserData',
   async (token, { rejectWithValue }) => {
@@ -25,7 +28,7 @@ export const getUserData = createAsyncThunk(
   }
 );
 
-// Thunk لتحديث بيانات المستخدم
+// Thunk pour mettre à jour les données de l'utilisateur
 export const updateUserData = createAsyncThunk(
   'user/updateUserData',
   async ({ token, userName }, { rejectWithValue }) => {
@@ -36,7 +39,7 @@ export const updateUserData = createAsyncThunk(
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
         },
-        body: JSON.stringify({ userName }), // إرسال الاسم الجديد فقط
+        body: JSON.stringify({ userName }), // Envoyez seulement le nouveau nom
       });
 
       if (!response.ok) {
@@ -89,8 +92,8 @@ const userSlice = createSlice({
       })
       .addCase(updateUserData.fulfilled, (state, action) => {
         state.loading = false;
-        state.userName = action.payload.body.userName; // تحديث الاسم بعد الحفظ
-        state.isEditing = false; // إغلاق وضع التعديل
+        state.userName = action.payload.body.userName; // Mettre à jour le nom après l'enregistrement.
+        state.isEditing = false; // Fermer le mode d'édition.
       })
       .addCase(updateUserData.rejected, (state, action) => {
         state.loading = false;

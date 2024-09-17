@@ -38,10 +38,7 @@ function User() {
         </div>
       ) : (
         <form className="form">
-          <input
-            type="text"
-            value={newUserName}
-            onChange={(e) => setNewUserName(e.target.value)} // Mettre à jour le nom lors de la modification
+          <input type="text" value={newUserName} onChange={(e) => setNewUserName(e.target.value)} // Mettre à jour le nom lors de la modification
           />
           <input type="text" disabled value={firstName} />
           <input type="text" disabled value={lastName} />
