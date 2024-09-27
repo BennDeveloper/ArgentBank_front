@@ -29,6 +29,7 @@ export const getUserData = createAsyncThunk(
 );
 
 // Thunk pour mettre à jour les données de l'utilisateur
+
 export const updateUserData = createAsyncThunk(
   'user/updateUserData',
   async ({ token, userName }, { rejectWithValue }) => {
